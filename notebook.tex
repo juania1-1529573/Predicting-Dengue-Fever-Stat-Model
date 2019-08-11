@@ -1,0 +1,861 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{index}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Predicting Disease Spread}\label{predicting-disease-spread}
+
+Juan Alvarez and Emily Qiao
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsRegressor}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns} \PY{c+c1}{\PYZsh{} for visualiation}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{ttest\PYZus{}ind} \PY{c+c1}{\PYZsh{} t\PYZhy{}tests}
+        \PY{k+kn}{import} \PY{n+nn}{altair} \PY{k}{as} \PY{n+nn}{alt}
+        \PY{n}{alt}\PY{o}{.}\PY{n}{renderers}\PY{o}{.}\PY{n}{enable}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{notebook}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} enable altair rendering}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dengue\PYZus{}features\PYZus{}train.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{outcome} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dengue\PYZus{}labels\PYZus{}train.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{total} \PY{o}{=} \PY{n}{data}
+        \PY{n}{total}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{outcome}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{total}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{method} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ffill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{sj} \PY{o}{=} \PY{n}{total}\PY{p}{[}\PY{n}{total}\PY{o}{.}\PY{n}{city}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{iq} \PY{o}{=} \PY{n}{total}\PY{p}{[}\PY{n}{total}\PY{o}{.}\PY{n}{city}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iq}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsection{Problem Overview}\label{problem-overview}
+
+    The dengue fever, as the name suggests, is a mosquito-borne disease
+caused by the dengue viruses. The symptoms of dengue fever include, as
+listed on
+\href{https://www.webmd.com/a-to-z-guides/dengue-fever-reference\#1-2}{WebMD}:
+
+\begin{itemize}
+\tightlist
+\item
+  sudden, high fever
+\item
+  severe headaches
+\item
+  pain behind the eyes
+\item
+  severe joint and muscle pain
+\item
+  fatigue
+\item
+  nausea
+\item
+  vomiting
+\item
+  skin rash
+\item
+  mild bleeding
+\end{itemize}
+
+The symptoms are sometimes mild and mistaken for flu. Serious problems
+can develop, however, if there was lack of early recognition and prompt
+supportive treatment.
+
+The dengue fever has become a global problem since the 1950s and is now
+a leading cause of illness and death in the tropics and subtropics.
+According to \href{https://www.cdc.gov/dengue/index.html}{Centers of
+Disease Control and Prevention (CDC)}, there are not yet any vaccines to
+prevent dengue fever.
+
+Dengue fever is spread through the bite of female mosquito (Aedes
+aegypti) when the mosquito takes blood of a infected person and bites a
+healthy person within a week. Based on information given on
+\href{http://www.who.int/denguecontrol/faq/en/index1.html}{World Health
+Organization's website}, dengue outbreaks can occur anytime as long as
+there are mosquitoes alive. Yet regions with high humidity and high
+temperature usually have more likehood of dengue outbreaks.
+
+In this project, we explore the dengue fever dataset and try to predict
+the number of dengue cases based on environmental variables. The dataset
+contains different aspects of data for two cities: San Juan
+(\texttt{sj}) and Iquitos (\texttt{iq}). Aside from date indicators
+(\texttt{week\_start\_date}), NDVI indexes (\texttt{ndvi\_se},
+\texttt{ndvi\_sw}, \texttt{ndvi\_ne}, \texttt{ndvi\_nw}) are also given,
+which measure the density of vegetation on a patch of land and can be
+used as an indon icator of agricultural drought. These indexes are
+relevant because mosquitoes lay eggs in water and the eggs need water to
+hatch as well. If a region is experiencing emtreme drought, chances of
+mosquitoes surviving in that area becomes low, hence reducing the spread
+rate of dengue fever. There is also detailed climate information
+provided in the dataset, coming from three different sources.
+\texttt{station\_max\_temp\_c}, \texttt{station\_min\_temp\_c},
+\texttt{station\_avg\_temp\_c}, \texttt{station\_precip\_mm}, and
+\texttt{station\_diur\_temp\_rng\_c} are measurements from National
+Ocean and Atmospheric Administration's (NOAA) Global Historical
+Climatology Network (GHCN) daily climate data weather station, which
+shows data about \emph{maximum temperature}, \emph{minimun temperature},
+\emph{average temperature}, \emph{total precipitation}, and
+\emph{diurnal temperature range} corresondingly.
+\texttt{precipitation\_amt\_mm} data is generated by PERSIANN-CDR, an
+artifical neural network that provides daily rainfall estimates, and
+represents the total precipitation of a given region at a given time.
+And finally, the rest of the data come from the NCEP Climate Forecast
+System Reanalysis (CFSR), which is known for its accuracy of estimation,
+where \texttt{reanalysis\_sat\_precip\_amt\_mm} represents \emph{total
+precipitation}, \texttt{reanalysis\_dew\_point\_temp\_k} for \emph{mean
+dew point temperature}, \texttt{reanalysis\_air\_temp\_k} for \emph{mean
+air temperature}, \texttt{reanalysis\_relative\_humidity\_percent} for
+\emph{mean relative humidity},
+\texttt{reanalysis\_specific\_humidity\_g\_per\_kg} for \emph{mean
+specific humidity}, \texttt{reanalysis\_precip\_amt\_kg\_per\_m2} for
+\emph{total precipitation}, \texttt{reanalysis\_max\_air\_temp\_k} for
+\emph{maximum air temperature}, \texttt{reanalysis\_min\_air\_temp\_k}
+for \emph{minimum air temperature}, \texttt{reanalysis\_avg\_temp\_k}
+for \emph{average air temperature}, and finally
+\texttt{reanalysis\_tdtr\_k} for \emph{diurnal temperature range}.
+Information about temperature, precipitation, and humidity is largely
+needed because, as explained earlier, mosquitoes live in warm
+environment and rely on water to lay eggs and hatch. It is very likely
+to have a positive relationship between warm temperature, high humidity,
+and more dangue cases reported.
+
+    \subsection{Data Preparation}\label{data-preparation}
+
+    \subsubsection{Data Transformation}\label{data-transformation}
+
+After we loaded the training data (\texttt{dengue\_features\_train.csv}
+and \texttt{dengue\_labels\_train}), we combined these two data frames
+together to create a new data frame with all the environmental features
+and the total cases of dengue fever. We worked on the combined data
+frame throughout the project because it has all the information we need
+and is easier to analyze.
+
+    \subsubsection{Missing Values}\label{missing-values}
+
+In order to take care of the missing values, we used the \texttt{ffill}
+method built in \texttt{pandas}'s \texttt{fillna} function to fill the
+missing data with the valid value forward. We chose to use this approach
+because it is simply and fairly intuitive.
+
+    \subsubsection{New Variable}\label{new-variable}
+
+We created a new variable called \texttt{lag\_max} which is generated
+calculateind the differece between the maximum temperatures
+(\texttt{station\_max\_temp\_c}) of two consective week, because we
+wanted to know about how change of climate may affect the amount of
+mosquitoes coming in (aka cases of dengue fever).
+
+    \subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}
+
+    We asked several questions to better understand the dataset.
+
+\subsubsection{What is the distribution of the number of cases of Dengue
+each
+week?}\label{what-is-the-distribution-of-the-number-of-cases-of-dengue-each-week}
+
+Here is the overall distribution of San Juan and Iquitos over the year:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weekofyear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{city}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{total}\PY{p}{,} \PY{n}{ci} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week of year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} [Text(0,0.5,'total cases'), Text(0.5,0,'week of year')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It is very clear that the distribution pattern of the two cities are
+totally different. In San Juan, dengue cases increase a lot during the
+second half of the year and go down in the first half of the year. While
+in Iquitos, the curve looks more flat. The dengue disease is most severe
+at the end of the year (week 50), and then goes down immediately.
+
+The difference is even more obvious if we align the graphs of the two
+cities vertically:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{total}\PY{p}{,} \PY{n}{row}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{city}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weekofyear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ci}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{;}
+        \PY{n}{g}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <seaborn.axisgrid.FacetGrid at 0x1c17f68a58>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    What made the distrbution of the two cities so different? Interestingly,
+\textbf{San Juan has a tropical monsoon climate}. Rainfall is
+well-distributed throughout the year, but \textbf{January, February, and
+March are the driest}. This explains why cases of dengue decrease during
+the first quarter of the year (mosquitoes don't like dry weather) and
+increase from week 17 (April). On the other hand, \textbf{Iquitos has
+tropical rainforest climate}, where there is constant rainfall
+throughout the year, \textbf{without a distinct dry season}. This is why
+the curve for Iquitos is a lot more flat.
+
+\subsubsection{How does the number of cases fluctuate over time? Do
+these temporal relationships persist in both
+locations?}\label{how-does-the-number-of-cases-fluctuate-over-time-do-these-temporal-relationships-persist-in-both-locations}
+
+It turns out that \textbf{the number of cases actually fluctuates a lot
+over time}. In San Juan, there were significantly more cases in 1994 and
+1998, while in years like 2000, 2002 and 2008, it seems like dengue
+fever was pretty under control.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{sj}\PY{p}{,} \PY{n}{ci} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{steelblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{San Juan}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} [Text(0,0.5,'total cases'), Text(0.5,0,'year'), Text(0.5,1,'San Juan')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    And in Iquitos, there was almost no cases of dengue fever before 2002. A
+outbreak happened in 2002, although the number of cases is still a lot
+smaller than San Juan's. The disease got controlled in 2003, but became
+resurgent in 2004. Then there was another outbreak in 2008.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{iq}\PY{p}{,} \PY{n}{ci} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{steelblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{g}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iquitos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [Text(0,0.5,'total cases'), Text(0.5,0,'year'), Text(0.5,1,'Iquitos')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    To look at the two graphs together, we can see that the way that
+\textbf{the number of cases of Dengue fever varies is independent of the
+city} we are looking at. Temporal relationships do not persist in both
+locations. We see that in Iquitos there was a spike in cases from 2003
+to 2004 and 2005 to 2006, but there was a sharp decrease in cases in San
+Juan.
+
+    \subsection{Which variables are correlated with your outcome of interest
+(total\_cases)? Are these correlations consistent in both cities (you
+may want to calculate
+this)?}\label{which-variables-are-correlated-with-your-outcome-of-interest-total_cases-are-these-correlations-consistent-in-both-cities-you-may-want-to-calculate-this}
+
+Lets make bar charts(representing each city), and see which variables
+correlate to total\_cases by looking at thier distribution.
+
+    Visualizations for the varaibles can be found on \textbf{vis.ipynb}. For
+a Negative Binomial Regression model, we want to pick variables that
+follow a \emph{negative binomial distribution}. We see that depending on
+the city we are looking at, there are some varaibles that follow this
+curve. The variances within each variable have to be higher than the
+means within each varaible. These differences suggest that
+over-dispersion is present and that a Negative Binomial model would be
+appropriate.
+
+    \subsection{Statistical Modeling}\label{statistical-modeling}
+
+    Looking at the previous section about variables correlated to our model,
+our team decided that a Negative Binomial Regression model was the best
+fit for our distribution. As we can see in \textbf{vis.ipynb}, the
+distribution of \emph{total\_cases} follows a negative binomial
+distribution. Since the mean and variance of the data are different in
+terms of a relative threshold, we can not pick a Poisson model. The
+variance is higher than the mean in our case, which suggests
+over-dispersion. The negative binomial distribution has one more
+parameter in its function than the Poisson regression, which adjusts the
+variance independently from the mean. Our outcome (\emph{total\_cases})
+is a discrete count, so we can use this model.
+
+    \subsubsection{What variables to pick for the
+model?}\label{what-variables-to-pick-for-the-model}
+
+    Lets take a quick look at our data, before we see any visualizations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{total}\PY{o}{.}\PY{n}{total\PYZus{}cases}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} count    1456.000000
+        mean       24.675137
+        std        43.596000
+        min         0.000000
+        25\%         5.000000
+        50\%        12.000000
+        75\%        28.000000
+        max       461.000000
+        Name: total\_cases, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{total}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}               year   weekofyear      ndvi\_ne      ndvi\_nw      ndvi\_se  \textbackslash{}
+        count  1456.000000  1456.000000  1456.000000  1456.000000  1456.000000   
+        mean   2001.031593    26.503434     0.131271     0.128068     0.202606   
+        std       5.408314    15.019437     0.138527     0.119561     0.074409   
+        min    1990.000000     1.000000    -0.406250    -0.456100    -0.015533   
+        25\%    1997.000000    13.750000     0.039100     0.048250     0.152795   
+        50\%    2002.000000    26.500000     0.113900     0.115926     0.195664   
+        75\%    2005.000000    39.250000     0.232018     0.213429     0.247461   
+        max    2010.000000    53.000000     0.508357     0.454429     0.538314   
+        
+                   ndvi\_sw  precipitation\_amt\_mm  reanalysis\_air\_temp\_k  \textbackslash{}
+        count  1456.000000           1456.000000            1456.000000   
+        mean      0.201987             45.686937             298.697965   
+        std       0.083592             43.779318               1.361950   
+        min      -0.063457              0.000000             294.635714   
+        25\%       0.144455              9.655000             297.654643   
+        50\%       0.190121             38.235000             298.646429   
+        75\%       0.246775             70.227500             299.827500   
+        max       0.546017            390.600000             302.200000   
+        
+               reanalysis\_avg\_temp\_k  reanalysis\_dew\_point\_temp\_k     {\ldots}       \textbackslash{}
+        count            1456.000000                  1456.000000     {\ldots}        
+        mean              299.221483                   295.245445     {\ldots}        
+        std                 1.262676                     1.527527     {\ldots}        
+        min               294.892857                   289.642857     {\ldots}        
+        25\%               298.257143                   294.119643     {\ldots}        
+        50\%               299.285714                   295.639286     {\ldots}        
+        75\%               300.207143                   296.460000     {\ldots}        
+        max               302.928571                   298.450000     {\ldots}        
+        
+               reanalysis\_relative\_humidity\_percent  reanalysis\_sat\_precip\_amt\_mm  \textbackslash{}
+        count                           1456.000000                   1456.000000   
+        mean                              82.176203                     45.686937   
+        std                                7.161016                     43.779318   
+        min                               57.787143                      0.000000   
+        25\%                               77.185714                      9.655000   
+        50\%                               80.301429                     38.235000   
+        75\%                               86.406429                     70.227500   
+        max                               98.610000                    390.600000   
+        
+               reanalysis\_specific\_humidity\_g\_per\_kg  reanalysis\_tdtr\_k  \textbackslash{}
+        count                            1456.000000        1456.000000   
+        mean                               16.745565           4.898656   
+        std                                 1.542276           3.542340   
+        min                                11.715714           1.357143   
+        25\%                                15.560000           2.328571   
+        50\%                                17.087143           2.857143   
+        75\%                                17.977500           7.617857   
+        max                                20.461429          16.028571   
+        
+               station\_avg\_temp\_c  station\_diur\_temp\_rng\_c  station\_max\_temp\_c  \textbackslash{}
+        count         1456.000000              1456.000000         1456.000000   
+        mean            27.180313                 8.085646           32.443338   
+        std              1.280861                 2.122836            1.960769   
+        min             21.400000                 4.528571           26.700000   
+        25\%             26.300000                 6.528571           31.100000   
+        50\%             27.400000                 7.364286           32.800000   
+        75\%             28.132143                 9.600000           33.900000   
+        max             30.800000                15.800000           42.200000   
+        
+               station\_min\_temp\_c  station\_precip\_mm  total\_cases  
+        count         1456.000000        1456.000000  1456.000000  
+        mean            22.099863          39.194162    24.675137  
+        std              1.569113          47.363305    43.596000  
+        min             14.700000           0.000000     0.000000  
+        25\%             21.100000           8.700000     5.000000  
+        50\%             22.200000          23.800000    12.000000  
+        75\%             23.300000          53.675000    28.000000  
+        max             25.600000         543.300000   461.000000  
+        
+        [8 rows x 23 columns]
+\end{Verbatim}
+            
+    \subsubsection{We need to select the columns where there is
+overdispersion
+present.}\label{we-need-to-select-the-columns-where-there-is-overdispersion-present.}
+
+Using a simple for-loop, we can filter out what columns have a larger
+variance than mean.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{sj}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{p}{(}\PY{n}{column} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{or} \PY{n}{column} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week\PYZus{}start\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{sj}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{sj}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{n}{column}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+weekofyear
+precipitation\_amt\_mm
+reanalysis\_precip\_amt\_kg\_per\_m2
+reanalysis\_sat\_precip\_amt\_mm
+station\_precip\_mm
+total\_cases
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{iq}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{p}{(}\PY{n}{column} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{or} \PY{n}{column} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week\PYZus{}start\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{iq}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{iq}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{n}{column}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+weekofyear
+precipitation\_amt\_mm
+reanalysis\_precip\_amt\_kg\_per\_m2
+reanalysis\_sat\_precip\_amt\_mm
+station\_precip\_mm
+total\_cases
+
+    \end{Verbatim}
+
+    List of variables that follow NB distribution for San Juan: -
+station\_precip\_mm - precipitation\_amt\_mm -
+reanalysis\_sat\_precip\_amt\_mm - reanalysis\_precip\_amt\_kg\_per\_m2
+
+List of variables that follow NB distribution for Iquitos: -
+station\_precip\_mm - precipitation\_amt\_mm -
+reanalysis\_sat\_precip\_amt\_mm - reanalysis\_precip\_amt\_kg\_per\_m2
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{sj\PYZus{}model} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{glm}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}cases \PYZti{} reanalysis\PYZus{}precip\PYZus{}amt\PYZus{}kg\PYZus{}per\PYZus{}m2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{sj}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{NegativeBinomial}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{iq\PYZus{}model} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{glm}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}cases \PYZti{} reanalysis\PYZus{}precip\PYZus{}amt\PYZus{}kg\PYZus{}per\PYZus{}m2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{iq}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{NegativeBinomial}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{San Juan Model}\label{san-juan-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{sj\PYZus{}model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:            total\_cases   No. Observations:                  936
+Model:                            GLM   Df Residuals:                      934
+Model Family:        NegativeBinomial   Df Model:                            1
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -4240.8
+Date:                Tue, 13 Nov 2018   Deviance:                       1075.8
+Time:                        00:17:05   Pearson chi2:                 2.00e+03
+No. Iterations:                    13   Covariance Type:             nonrobust
+===================================================================================================
+                                      coef    std err          z      P>|z|      [0.025      0.975]
+---------------------------------------------------------------------------------------------------
+Intercept                           3.3294      0.044     76.313      0.000       3.244       3.415
+reanalysis\_precip\_amt\_kg\_per\_m2     0.0061      0.001      6.614      0.000       0.004       0.008
+===================================================================================================
+
+    \end{Verbatim}
+
+    \subsubsection{Iquitos Model}\label{iquitos-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{iq\PYZus{}model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:            total\_cases   No. Observations:                  520
+Model:                            GLM   Df Residuals:                      518
+Model Family:        NegativeBinomial   Df Model:                            1
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -1599.2
+Date:                Tue, 13 Nov 2018   Deviance:                       775.04
+Time:                        00:17:08   Pearson chi2:                     896.
+No. Iterations:                    10   Covariance Type:             nonrobust
+===================================================================================================
+                                      coef    std err          z      P>|z|      [0.025      0.975]
+---------------------------------------------------------------------------------------------------
+Intercept                           1.7908      0.071     25.141      0.000       1.651       1.930
+reanalysis\_precip\_amt\_kg\_per\_m2     0.0038      0.001      4.157      0.000       0.002       0.006
+===================================================================================================
+
+    \end{Verbatim}
+
+    Our models show that the only type of variable that fits the model is
+related to precipitation. The p-value of the variable is below 0.05, so
+we can reject the null hypothesis and say that there is a significant
+correlation between \emph{total\_cases} and
+\emph{reanalysis\_precip\_amt\_kg\_per\_m2}
+
+    \subsubsection{Make Predictions Given
+Model}\label{make-predictions-given-model}
+
+    \subsubsection{Plot Iquitos Predictions}\label{plot-iquitos-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{iq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekofyear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{iq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}85754d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{actual cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{iq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekofyear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{iq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iq\PYZus{}predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}4b2e83}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predicted cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.6}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} <matplotlib.legend.Legend at 0x1c2165e6d8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Plot San Juan
+Predictions}\label{plot-san-juan-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{sj}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekofyear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{sj}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}85754d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{actual cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{sj}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekofyear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{sj}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sj\PYZus{}predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}4b2e83}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predicted cases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.6}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} <matplotlib.legend.Legend at 0x1c2139a748>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Load Test Data}\label{load-test-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{test\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dengue\PYZus{}features\PYZus{}test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{test\PYZus{}sj} \PY{o}{=} \PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{test\PYZus{}data}\PY{o}{.}\PY{n}{city} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{test\PYZus{}sj}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{method} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ffill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{predictions\PYZus{}sj} \PY{o}{=} \PY{n}{sj\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}sj}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{test\PYZus{}iq} \PY{o}{=} \PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{test\PYZus{}data}\PY{o}{.}\PY{n}{city} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iq}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{test\PYZus{}iq}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{method} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ffill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{predictions\PYZus{}iq} \PY{o}{=} \PY{n}{iq\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}iq}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/submission\PYZus{}format.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{result}\PY{o}{.}\PY{n}{total\PYZus{}cases} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{predictions\PYZus{}sj}\PY{p}{,} \PY{n}{predictions\PYZus{}iq}\PY{p}{]}\PY{p}{)}
+         \PY{n}{result}
+         \PY{c+c1}{\PYZsh{}result.to\PYZus{}csv(\PYZdq{}data/predicted\PYZus{}result.csv\PYZdq{})}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

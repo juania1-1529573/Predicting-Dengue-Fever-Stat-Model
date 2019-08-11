@@ -1,0 +1,9 @@
+There are a few reasons why climate change may increase Dengue risk. First, the incubation period of the virus shortens in warmer temperatures, which means a mosquito doesn’t have to survive as long to have a chance of becoming infectious. Second, the range of the mosquito is increasing due to global warming. In general, climate is a key factor controlling where a species can live. When climate changes, individuals move to stay in a suitable habitat.
+
+**Have a variable to track change in climate**
+
+89 percent of the distribution of Dengue fever cases was predicted by vapor pressure, which is a measure of humidity.
+
+**May want to compare fever cases with precipitation and temperature, higher temps and rain will have an increase in humidity**
+
+**Could calculate relative humidity in both cities**
